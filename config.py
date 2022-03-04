@@ -7,5 +7,6 @@
 @Software     :VScode
 @Description  :basic parameters
 '''
-different_char = ['Big']
+different_char = ['OPPO']
 sample_rate = 50
+save_folder = './txt_data/'
