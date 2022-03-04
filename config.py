@@ -7,7 +7,7 @@
 @Software     :VScode
 @Description  :basic parameters
 '''
-different_char = ['adb1', 'adb2', 'adb3', 'adb4', 'adb5']
+different_char = ['bili_shuru_1']
 sample_rate = 50
-save_folder = './txt_data/'
+save_folder = './real_time_data0304/'
 data_folder = './npy_data/'

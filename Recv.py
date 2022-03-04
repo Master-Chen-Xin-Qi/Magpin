@@ -12,7 +12,7 @@ import socket, time, os
 import pandas as pd, numpy as np
 import math
 from config import save_folder
-saveTime = 0.4  # Minutes
+saveTime = 1.2 # Minutes
 
 
 def collect_mag(data_save):
@@ -33,7 +33,7 @@ def collect_mag(data_save):
         # print("111")
         one_package = data.decode('ascii')
         split_package = one_package.split(',')
-        if len(split_package) >= 13:  # WARNING HERE: Different phones are different
+        if len(split_package) >= 9:  # WARNING HERE: Different phones are different
             packages_data.append(eval(one_package))  
             count_packages += 1
         # 存盘
@@ -52,6 +52,6 @@ def collect_mag(data_save):
 
 if __name__ == '__main__':
     # Collect
-    data_save = 'adb5.txt'
+    data_save = 'adb_bili_shuru_1time.txt'
     collect_mag(data_save)
 
