@@ -51,12 +51,11 @@ def read_data(input_folder):
         for single_file in file_dict[char]:
             mag_data = read_single_file(single_file)
             total_data_per_char = np.vstack((total_data_per_char, mag_data))
-        label = char[-1]
         if total_data_per_char.ndim < 2:
             continue
         total_data_per_char = total_data_per_char[1:]
-        print(f"char:{label} data size:{total_data_per_char.shape}")
-        np.save(f'./data/{char}.npy', total_data_per_char)
+        print(f"char:{char} data size:{total_data_per_char.shape}")
+        np.save(f'./npy_data/{char}.npy', total_data_per_char)
     
 
 def fft_transform(vector):

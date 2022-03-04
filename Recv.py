@@ -12,7 +12,7 @@ import socket, time, os
 import pandas as pd, numpy as np
 import math
 from config import save_folder
-saveTime = 1  # Minutes
+saveTime = 0.4  # Minutes
 
 
 def collect_mag(data_save):
@@ -32,8 +32,9 @@ def collect_mag(data_save):
         data, _ = sock.recvfrom(150)
         # print("111")
         one_package = data.decode('ascii')
-        if len(one_package) >= 9:  # WARNING HERE: Different phones are different
-            packages_data.append(one_package)  # Four info: time, x-mag,y-mag,z-mag
+        split_package = one_package.split(',')
+        if len(split_package) >= 13:  # WARNING HERE: Different phones are different
+            packages_data.append(eval(one_package))  
             count_packages += 1
         # 存盘
         if len(packages_data) > save_packages:
@@ -49,10 +50,8 @@ def collect_mag(data_save):
             break
         
 
-
 if __name__ == '__main__':
-
     # Collect
-    data_save = '_zhijia.txt'
+    data_save = 'adb5.txt'
     collect_mag(data_save)
 
