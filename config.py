@@ -7,4 +7,5 @@
 @Software     :VScode
 @Description  :basic parameters
 '''
-different_char = ['PIN=1', 'PIN=3', 'PIN=5', 'PIN=7', 'PIN=9']
+different_char = ['Big']
+sample_rate = 50

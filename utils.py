@@ -59,8 +59,49 @@ def read_data(input_folder):
         np.save(f'./data/{char}.npy', total_data_per_char)
     
 
+def fft_transform(vector):
+    '''
+        FFT transform, save the real part
+    '''
+    transformed = np.fft.fft(vector)
+    return np.abs(transformed)
+
+def gauss_filter(vector, sigma):
+    '''
+        Gaussian transform to filter some noise
+    '''
+    import scipy.ndimage
+    gaussian_vector = scipy.ndimage.filters.gaussian_filter(vector, sigma)
+    return gaussian_vector
+
+def PCA(vector, dimension):
+    '''
+        Using PCA to reduce dimension
+    '''
+    from sklearn.decomposition import PCA
+    pca = PCA(n_components=dimension)
+    vector = pca.fit_transform(vector)
+    print('using pca...', vector.shape)
+    return vector
+
+def train_test_eval_split(data, label, test_size=0.1, val_size=0.2):
+    '''
+        Split data into train, test, and evaluation, with test_size and val_size
+    '''
+    from sklearn.model_selection import train_test_split
+    x_train, x_test, y_train, y_test = train_test_split(data, label, test_size=test_size, random_state=0)
+    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=val_size, random_state=0)
+    print(f'train size:{len(x_train)}  val size:{len(x_val)} test size:{len(x_test)}')
+    return (x_train, y_train), (x_val, y_val), (x_test, y_test)
+
+# def confusion_matrix()
 
 if __name__ == '__main__':
     input_folder = "C:/Users/ASUS/Desktop/科研/magpin/PINs数据/Nexus-Li-Lightness-PIN-1119"
     # print(divide_files_by_name(input_folder, different_char))
-    read_data(input_folder)
+    # read_data(input_folder)
+    # a = np.ones((3, 4))
+    # print(fft_transform(a).shape)
+    data = np.load('./data/PIN=1.npy')
+    label = []
+    train_test_eval_split(data, )
