@@ -7,7 +7,7 @@
 @Software     :VScode
 @Description  :basic parameters
 '''
-different_char = ['bili_shuru_1']
+different_char = ['nexus']
 sample_rate = 50
 save_folder = './real_time_data0304/'
 data_folder = './npy_data/'

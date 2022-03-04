@@ -14,10 +14,10 @@ import socket, time, os, numpy as np, pandas as pd
 from collections import deque
 import matplotlib.pyplot as plt
 
-minutes_save_total = 20
+minutes_save_total = 5
 url = "10.162.142.205"
 folder_save = "./real_time_data" + time.strftime('%m%d', time.localtime(time.time())) + '/'
-data_save = 'nexus-test.txt'
+data_save = 'sumsung-test.txt'
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((url, 8090))
 max_entries = 2000
@@ -84,13 +84,13 @@ while True:
     previous_package_time = time_now
     # print(one_package)
     one_package = one_package.split(',')
-    print(len(one_package))
+    # print(len(one_package))
     if i == 0:
         previous = float(one_package[-3])
         # previous_previous = 0
     if len(one_package) > 4:  
         # WARNING HERE: Different phones are different
-        all_ = -float(one_package[-2])  # - np.abs(float(one_package[-2]))  # + np.abs(float(one_package[-3]))
+        all_ = float(one_package[-2])  # - np.abs(float(one_package[-2]))  # + np.abs(float(one_package[-3]))
         one_package_plot = all_  # - previous
         one_package = [one_package[0], one_package[-3], one_package[-2], one_package[-1]]        
         # print(one_package_plot)

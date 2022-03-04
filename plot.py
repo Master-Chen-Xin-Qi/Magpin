@@ -9,28 +9,25 @@
 '''
 import matplotlib.pyplot as plt
 import numpy as np
+from config import sample_rate
 
-def plot_mag(data, label, start_time=0, end_time=-1):
+def plot_mag(data, label, data_start=0, data_end=-1):
     '''
         plot mag data according to its label, and show part of the data
     '''
-    data_l = len(data)
-    if start_time == 0 and end_time == -1:
-        x_range = np.arange(0, data_l/50, 0.02)
-        data_start = 0
-        data_end = len(data) + 1
-    else:
-        x_range = np.arange(start_time, end_time, 0.02)
-        data_start = int(start_time * 50)
-        data_end = int(end_time * 50)
+
     plt.xlabel('time(s)')
     plt.ylabel('magnitude')
-    plt.plot(x_range, data[data_start:data_end, 0], label='x', color='b')
-    x_ticks = np.arange(0, len(data)/50, 5)
+    if data_end == -1:
+        data_end = len(data)/50 - data_start
+    x_range = np.arange(data_start, data_end, 1/sample_rate)
+    plt.plot(x_range, -data[int(data_start*sample_rate):int(data_end*sample_rate), 1], label='x', color='b')
+    x_ticks = np.linspace(data_start, data_end, int((data_end - data_start)//5))
     plt.xticks(x_ticks)
     plt.legend()
     bottom, top = plt.ylim()
     plt.ylim((bottom, top))
+    plt.xlim(data_start, data_end)
     
     # plt.subplot(132)
     # plt.xlabel('time(s)')

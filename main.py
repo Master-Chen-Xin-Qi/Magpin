@@ -16,7 +16,7 @@ from config import data_folder, save_folder, different_char
 if __name__ == '__main__':
     
     read_data(save_folder)
-    data_name = 'bili_shuru_1'
+    data_name = 'nexus'
     data = np.load(data_folder + data_name + '.npy')
-    plot_mag(data, data_name)
+    plot_mag(data, data_name, 0, 75)
     # stand_plot(data, data_name)
