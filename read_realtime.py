@@ -70,7 +70,7 @@ i = 0
 # Plot related
 fig = plt.figure()
 axes1 = fig.add_subplot(111)  # define figures
-plt.xlabel('Time(%.2f ms)' % (1 / sample_rate))
+plt.xlabel('Time(s) %.2fs/data' % (1 / sample_rate))
 plt.ylabel('Magnetic Signals(Not uT)')
 display1 = RealtimePlot(axes1)
 previous_package_time = start_time
