@@ -20,7 +20,8 @@ folder_save = "./real_time_data" + time.strftime('%m%d', time.localtime(time.tim
 data_save = 'sumsung-test.txt'
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((url, 8090))
-max_entries = 2000
+check_save_window_length = 20
+max_entries = 1000  # 保存的最大个数，之后开始向右移动
 sample_rate = 50
 
 # Real Plot
