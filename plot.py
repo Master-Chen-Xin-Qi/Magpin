@@ -102,12 +102,29 @@ def stand_plot(data, label):
     plt.show()
     
     
-def plot_action_cf(df_cm, title_, figure_saved, target_names, rotation,use_notation,font_size):
+def prob_confusion(y_true, y_pred):
+    '''
+        generate confusion matrix in probability form
+    '''
+    from sklearn.metrics import confusion_matrix
+    matrix = confusion_matrix(y_true, y_pred)
+    sum_rows = np.sum(matrix, axis=0)  # 对列求和
+    final_confusion = []
+    for i in range(len(matrix)):
+        # print(i,sum_rows[i])
+        tmp = matrix[i] / sum_rows[i]
+        final_confusion.append(tmp)
+    final_confusion = np.array(final_confusion)
+    prob_matrix = np.round(final_confusion,3)
+    return prob_matrix
+
+    
+def plot_action_cf(df_cm, title_, figure_saved, target_names, rotation, use_notation, font_size):
     '''
         plot the confusion matrix with heat bar
+        df_cm : confusion matrix between predict and true data, in probability form
     '''
     import seaborn as sn
-    import pandas as pd
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(figsize=fig_size)
     fig.set_tight_layout({'pad': 1})
@@ -123,7 +140,19 @@ def plot_action_cf(df_cm, title_, figure_saved, target_names, rotation,use_notat
         plt.xticks(tick_marks, target_names,fontsize=font_size-10, rotation=rotation) # [1,2,3,4,5,6,7,8,9,10,11]
         plt.yticks(tick_marks, target_names, rotation=0, fontsize=font_size-10)
     plt.title(title_)
+    plt.ylabel('true')
+    plt.xlabel('predict')
     plt.savefig(pic_save + figure_saved + '.eps', format='eps')    
     plt.savefig(pic_save + figure_saved + '.pdf', format='pdf')
     plt.show()
     return
+
+
+if __name__ == '__main__':
+    data = np.load('./npy_data/bili_jingzhi.npy')[:, :2]
+    y_pred = [1, 2, 3, 1, 2, 3]
+    y_true = [1, 1, 2, 2, 3, 3]
+    cfion = prob_confusion(y_true, y_pred)
+    print(cfion)
+    plot_action_cf(cfion, 'test', 'test', ['1', '2', '3'], rotation=0, use_notation=True, font_size=25)
+    
