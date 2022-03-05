@@ -23,7 +23,7 @@ def plot_mag(data, label, data_start=0, data_end=-1):
     if data_end == -1:
         data_end = len(data)/50 - data_start
     x_range = np.arange(data_start, data_end, 1/sample_rate)
-    plt.plot(x_range, data[int(data_start*sample_rate):int(data_end*sample_rate), 1], label='x', color='b')
+    plt.plot(x_range, data[int(data_start*sample_rate):int(data_end*sample_rate), 0], label='x', color='b')
     x_ticks = np.linspace(data_start, data_end, int((data_end - data_start)))
     plt.xticks(x_ticks)
     plt.legend()

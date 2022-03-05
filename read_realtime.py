@@ -90,7 +90,7 @@ while True:
         # previous_previous = 0
     if len(one_package) > 4:  
         # WARNING HERE: Different phones are different
-        all_ = float(one_package[-2])  # - np.abs(float(one_package[-2]))  # + np.abs(float(one_package[-3]))
+        all_ = float(one_package[-3])  # - np.abs(float(one_package[-2]))  # + np.abs(float(one_package[-3]))
         one_package_plot = all_  # - previous
         one_package = [one_package[0], one_package[-3], one_package[-2], one_package[-1]]        
         # print(one_package_plot)
