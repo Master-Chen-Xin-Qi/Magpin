@@ -9,11 +9,13 @@
 '''
 import matplotlib.pyplot as plt
 import numpy as np
-from config import sample_rate
+from config import sample_rate, fig_size, pic_save
 
 def plot_mag(data, label, data_start=0, data_end=-1):
     '''
         plot mag data according to its label, and show part of the data
+        data_start : begin time of the data (s)
+        data_end   : end time of the data (s)
     '''
 
     plt.xlabel('time(s)')
@@ -21,8 +23,8 @@ def plot_mag(data, label, data_start=0, data_end=-1):
     if data_end == -1:
         data_end = len(data)/50 - data_start
     x_range = np.arange(data_start, data_end, 1/sample_rate)
-    plt.plot(x_range, -data[int(data_start*sample_rate):int(data_end*sample_rate), 1], label='x', color='b')
-    x_ticks = np.linspace(data_start, data_end, int((data_end - data_start)//5))
+    plt.plot(x_range, data[int(data_start*sample_rate):int(data_end*sample_rate), 1], label='x', color='b')
+    x_ticks = np.linspace(data_start, data_end, int((data_end - data_start)))
     plt.xticks(x_ticks)
     plt.legend()
     bottom, top = plt.ylim()
@@ -98,3 +100,30 @@ def stand_plot(data, label):
     f.suptitle(f'{label}')
     plt.savefig(f'./pics/standard_{label}.png')
     plt.show()
+    
+    
+def plot_action_cf(df_cm, title_, figure_saved, target_names, rotation,use_notation,font_size):
+    '''
+        plot the confusion matrix with heat bar
+    '''
+    import seaborn as sn
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(figsize=fig_size)
+    fig.set_tight_layout({'pad': 1})
+    ax = sn.heatmap(ax=ax, data=df_cm, annot=use_notation, cmap=plt.cm.Reds, vmin=0, vmax=1,
+                    fmt=".2f", annot_kws={"size": font_size - 15})
+    cbar = ax.collections[0].colorbar
+    # here set the labelsize by 20
+    cbar.ax.tick_params(labelsize=font_size - 15)  # colorbar
+    ax.tick_params(labelsize=font_size - 15, width=1)
+    ax.set_aspect(1)
+    if target_names is not None:
+        tick_marks = np.arange(0, len(target_names)) + 0.5 
+        plt.xticks(tick_marks, target_names,fontsize=font_size-10, rotation=rotation) # [1,2,3,4,5,6,7,8,9,10,11]
+        plt.yticks(tick_marks, target_names, rotation=0, fontsize=font_size-10)
+    plt.title(title_)
+    plt.savefig(pic_save + figure_saved + '.eps', format='eps')    
+    plt.savefig(pic_save + figure_saved + '.pdf', format='pdf')
+    plt.show()
+    return

@@ -14,10 +14,10 @@ import socket, time, os, numpy as np, pandas as pd
 from collections import deque
 import matplotlib.pyplot as plt
 
-minutes_save_total = 5
+minutes_save_total = 0.5  # collect time
 url = "10.162.142.205"
 folder_save = "./real_time_data" + time.strftime('%m%d', time.localtime(time.time())) + '/'
-data_save = 'sumsung-test.txt'
+data_save = '对应实时数据.txt'
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((url, 8090))
 check_save_window_length = 20
@@ -57,8 +57,7 @@ class RealtimePlot:
 if not os.path.exists(folder_save):
     os.mkdir(folder_save)
 if os.path.exists(folder_save + data_save):
-    pass
-    # os.remove(folder_save + data_save)
+    os.remove(folder_save + data_save)
 
 # 处理
 packages_data = []

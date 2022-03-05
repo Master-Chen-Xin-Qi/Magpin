@@ -16,7 +16,7 @@ from config import data_folder, save_folder, different_char
 if __name__ == '__main__':
     
     read_data(save_folder)
-    data_name = 'nexus'
+    data_name = '对应'
     data = np.load(data_folder + data_name + '.npy')
-    plot_mag(data, data_name, 0, 75)
+    plot_mag(data, data_name, data_start=2, data_end=10)  # start time and end time of data (s)
     # stand_plot(data, data_name)
